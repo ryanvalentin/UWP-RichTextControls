@@ -30,7 +30,7 @@ namespace RichTextControls.Tests.Test_Generators
 
             var paragraph = richTextBlock.Blocks[0] as Paragraph;
 
-            Assert.AreEqual((paragraph.Inlines[0] as Run)?.Text, "test");
+            Assert.AreEqual("test", (paragraph.Inlines[0] as Run)?.Text);
         }
 
         [UITestMethod]
@@ -82,7 +82,7 @@ namespace RichTextControls.Tests.Test_Generators
 
             var innerItalic = outerBold.Inlines[0] as Italic;
 
-            Assert.AreEqual((paragraph.Inlines[0] as Run)?.Text, "test");
+            Assert.AreEqual("test", (innerItalic.Inlines[0] as Run)?.Text);
         }
     }
 }
