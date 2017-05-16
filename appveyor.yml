@@ -1,8 +1,9 @@
+version: 1.0.{build}
 image: Visual Studio 2017
-
-branches:
-  only:
-    - master
-
+platform: Any CPU
 init:
-  - ps: git config --global core.autocrlf true
+- ps: git config --global core.autocrlf true
+environment:
+  EnableNuGetPackageRestore: true
+build:
+  verbosity: minimal
