@@ -1,0 +1,91 @@
+﻿<Page
+    x:Class="RichTextControls.ExampleApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RichTextControls.ExampleApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/SplitViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="SplitViewPaneTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SplitViewTextBlockStyle}" />
+            <Style TargetType="RadioButton" BasedOn="{StaticResource SplitViewRadioButtonStyle}" />
+
+        </ResourceDictionary>
+
+    </Page.Resources>
+
+    <Grid>
+
+        <SplitView 
+            x:Name="MainPageSplitView"
+            DisplayMode="Inline"
+            IsPaneOpen="True"
+            >
+            <SplitView.Pane>
+                <Grid RequestedTheme="Dark">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+
+                            <RadioButton x:Name="HamburgerButton" Checked="DontCheck" Click="HamburgerButton_Click">
+                                <RadioButton.Tag>
+                                    <TextBlock Text="" FontSize="{StaticResource SplitViewLargeNavFontSize}" Style="{StaticResource SplitViewPaneTextBlockStyle}" FontFamily="Segoe MDL2 Assets" />
+                                </RadioButton.Tag>
+                            </RadioButton>
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <StackPanel x:Name="RadioButtonContainer" Grid.Row="1">
+
+                        <RadioButton x:Name="HtmlTextBlockRadioButton" Content="HtmlTextBlock" GroupName="Nav" Checked="HtmlTextBlockRadioButton_Checked">
+                            <RadioButton.Tag>
+                                <TextBlock Text="" Style="{StaticResource SplitViewPaneTextBlockStyle}" /> 
+                            </RadioButton.Tag>
+                        </RadioButton>
+
+                        <RadioButton x:Name="CodeTextBlockRadioButton" Content="CodeHighlightedTextBlock" GroupName="Nav" Checked="CodeTextBlockRadioButton_Checked">
+                            <RadioButton.Tag>
+                                <TextBlock Text="" Style="{StaticResource SplitViewPaneTextBlockStyle}" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2">
+
+                        <RadioButton Content="About" GroupName="Nav">
+                            <RadioButton.Tag>
+                                <TextBlock Text="" Style="{StaticResource SplitViewPaneTextBlockStyle}" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+
+                    </StackPanel>
+
+                </Grid>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid>
+                    <TextBlock Text="RichTextControls Test Application" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource SubtitleTextBlockStyle}" />
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
+        
+    </Grid>
+
+
+</Page>

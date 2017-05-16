@@ -1,0 +1,56 @@
+﻿<UserControl
+    x:Class="RichTextControls.ExampleApp.HtmlControlTestView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RichTextControls.ExampleApp"
+    xmlns:richText="using:RichTextControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <TextBox 
+            x:Name="HtmlSourceTextBox" 
+            AcceptsReturn="True"
+            BorderThickness="0"
+            Padding="12"
+            TextChanged="HtmlSourceTextBox_TextChanged"
+            Grid.Row="1"
+            />
+        <ScrollViewer Grid.Column="1" Grid.Row="1" BorderThickness="1,0,0,0" BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}">
+            <richText:HtmlTextBlock 
+                x:Name="HtmlPreviewTextBlock"
+                Margin="12"
+                />
+        </ScrollViewer>
+
+        <CommandBar Grid.ColumnSpan="2">
+            <AppBarButton
+                x:Name="OpenFileButton"
+                Icon="OpenFile"
+                Label="Open File"
+                Click="OpenFileButton_Click"
+                />
+            <CommandBar.Content>
+                <TextBlock 
+                    Text="HtmlTextBlock" 
+                    Style="{StaticResource TitleTextBlockStyle}" 
+                    Margin="18,6,18,0" 
+                    />
+            </CommandBar.Content>
+        </CommandBar>
+    </Grid>
+</UserControl>
