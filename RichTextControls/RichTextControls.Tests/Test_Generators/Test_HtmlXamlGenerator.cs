@@ -4,6 +4,7 @@ using RichTextControls.Generators;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
+using AngleSharp.Dom;
 
 namespace RichTextControls.Tests.Test_Generators
 {
@@ -83,6 +84,54 @@ namespace RichTextControls.Tests.Test_Generators
             var innerItalic = outerBold.Inlines[0] as Italic;
 
             Assert.AreEqual("test", (innerItalic.Inlines[0] as Run)?.Text);
+        }
+
+        [UITestMethod]
+        public void Test_HtmlXamlGenerator_TextNodeParent()
+        {
+            var generator = new HtmlXamlGenerator("This is a <b>bold</b> test.");
+            var generatedElement = generator.Generate() as StackPanel;
+            var firstRichTextBlock = generatedElement.Children[0] as RichTextBlock;
+
+            Assert.AreEqual(1, firstRichTextBlock.Blocks.Count);
+
+            var paragraph = firstRichTextBlock.Blocks[0] as Paragraph;
+
+            Assert.AreEqual(3, paragraph.Inlines.Count);
+            Assert.IsInstanceOfType(paragraph.Inlines[1], typeof(Bold));
+        }
+
+        [UITestMethod]
+        public void Test_HtmlXamlGenerator_SubClass()
+        {
+            var customGenerator = new CustomHtmlXamlGenerator("<p>In the movie The Birds, <spoiler>there are birds</spoiler>.</p>");
+            var generatedElement = customGenerator.Generate() as StackPanel;
+            var firstRichTextBlock = generatedElement.Children[0] as RichTextBlock;
+            var paragraph = firstRichTextBlock.Blocks[0] as Paragraph;
+
+            Assert.AreEqual(3, paragraph.Inlines.Count);
+            Assert.IsInstanceOfType(paragraph.Inlines[1], typeof(Run));
+
+            var spoilerRun = paragraph.Inlines[1] as Run;
+
+            Assert.AreEqual("Spoiler hidden", spoilerRun.Text);
+        }
+
+        internal class CustomHtmlXamlGenerator : HtmlXamlGenerator
+        {
+            internal CustomHtmlXamlGenerator(string html)
+                : base(html)
+            {
+
+            }
+
+            protected override Inline GenerateInlineForNode(INode node, InlineCollection inlines)
+            {
+                if (node.NodeName == "SPOILER")
+                    return new Run() { Text = "Spoiler hidden" };
+
+                return base.GenerateInlineForNode(node, inlines);
+            }
         }
     }
 }
