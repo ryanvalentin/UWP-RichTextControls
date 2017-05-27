@@ -41,5 +41,10 @@ namespace RichTextControls.ExampleApp
         {
             MainPageSplitView.Content = new CodeControlTestView();
         }
+
+        private void HtmlEditBoxRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            MainPageSplitView.Content = new HtmlEditBoxTestView();
+        }
     }
 }

@@ -104,6 +104,9 @@
     <Compile Include="HtmlControlTestView.xaml.cs">
       <DependentUpon>HtmlControlTestView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HtmlEditBoxTestView.xaml.cs">
+      <DependentUpon>HtmlEditBoxTestView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HtmlControlTestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HtmlEditBoxTestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

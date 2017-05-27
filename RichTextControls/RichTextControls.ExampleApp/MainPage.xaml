@@ -64,6 +64,12 @@
                             </RadioButton.Tag>
                         </RadioButton>
 
+                        <RadioButton x:Name="HtmlEditBoxRadioButton" Content="HtmlEditBox" GroupName="Nav" Checked="HtmlEditBoxRadioButton_Checked">
+                            <RadioButton.Tag>
+                                <TextBlock Text="" Style="{StaticResource SplitViewPaneTextBlockStyle}" />
+                            </RadioButton.Tag>
+                        </RadioButton>
+
                     </StackPanel>
 
                     <StackPanel Grid.Row="2">
