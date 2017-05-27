@@ -21,6 +21,7 @@ namespace RichTextControls.Generators
     {
         private readonly HtmlParser _parser;
         private readonly string _html;
+        private IHtmlDocument _document;
 
         private static readonly Regex _htmlWhitespaceRegex = new Regex(@"(?<=\s)\s+(?![^<pre>]*</pre>)", RegexOptions.Compiled);
         private static readonly Regex _preTagRegex = new Regex(@"(?:\<pre\>)(.*)(?:\<\/pre\>)", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
@@ -29,6 +30,11 @@ namespace RichTextControls.Generators
         {
             _parser = new HtmlParser();
             _html = PrepareRawHtml(html);
+        }
+
+        public HtmlXamlGenerator(IHtmlDocument document)
+        {
+            _document = document;
         }
 
         /// <summary>
@@ -56,14 +62,14 @@ namespace RichTextControls.Generators
         /// <exception cref="InvalidOperationException">Thrown when no parser is detected. Typically occurs when subclassed without calling base constructor.</exception>
         public UIElement Generate()
         {
-            if (_parser == null)
-                throw new InvalidOperationException("No HTML parser was set. If this is a subclass you must instantiate the parent with `base(string)`.");
+            if (_parser == null && _document == null)
+                throw new InvalidOperationException("No HTML parser was set. If this is a subclass you must instantiate the parent with `base()`.");
+
+            _document = _document ?? _parser.Parse(_html);
 
             var panel = new StackPanel();
 
-            var document = _parser.Parse(_html);
-
-            AddChildren(document.Body, panel.Children);
+            AddChildren(_document.Body, panel.Children);
 
             return panel;
         }

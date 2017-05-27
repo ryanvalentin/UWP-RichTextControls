@@ -1,10 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AngleSharp.Dom;
+using AngleSharp.Parser.Html;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting.AppContainer;
 using RichTextControls.Generators;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
-using AngleSharp.Dom;
 
 namespace RichTextControls.Tests.Test_Generators
 {
@@ -35,6 +36,25 @@ namespace RichTextControls.Tests.Test_Generators
         }
 
         [UITestMethod]
+        public void Test_HtmlXamlGenerator_Document()
+        {
+            try
+            {
+                var parser = new HtmlParser();
+                var document = parser.Parse("<p>test</p>");
+
+                var generator = new HtmlXamlGenerator(document);
+                var generatedElement = generator.Generate();
+
+                Assert.IsInstanceOfType(generatedElement, typeof(StackPanel));
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Generator should work with a parsed IHtmlDocument instance. Exception was: " + ex.Message);
+            }
+        }
+
+        [UITestMethod]
         public void Test_HtmlXamlGenerator_EmptyHtml()
         {
             try
@@ -53,7 +73,7 @@ namespace RichTextControls.Tests.Test_Generators
         {
             try
             {
-                var nullGenerator = new HtmlXamlGenerator(null);
+                var nullGenerator = new HtmlXamlGenerator(html: null);
                 var nullGeneratedElement = nullGenerator.Generate();
             }
             catch (Exception ex)
