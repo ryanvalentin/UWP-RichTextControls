@@ -1,5 +1,3 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/u8m0ml7sxhiu35sv?svg=true)](https://ci.appveyor.com/project/ryanvalentin/uwp-richtextcontrols)
-
 # UWP-RichTextControls
 
 A set of controls for displaying text formats like HTML on the Universal Windows Platform (UWP). Originally ported from the [Disqus app for Windows](https://www.microsoft.com/store/p/disqus/9wzdncrdgctr).
